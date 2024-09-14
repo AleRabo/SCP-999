@@ -1,4 +1,4 @@
-# <p>SCP999</p>
+# SCP-999
 ## Adds the custom role SCP-999
 ![Logo](https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png)
 
