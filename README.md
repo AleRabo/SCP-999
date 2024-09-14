@@ -22,5 +22,5 @@ Download the json and put it in the schematics folder of MER
 
 ## Credits
 - Thanks RisottoMan for ...
-- Thanks power2008qwe created model
-- Thanks Caty Foxt original idea
+- Thanks <b>power2008qwe</b> for creating the model and animations.
+- Thanks <b>Caty Foxt</b> for the original idea.
