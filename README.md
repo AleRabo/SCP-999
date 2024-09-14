@@ -5,7 +5,8 @@
 </p>
 
 ## Abilities
-### Heal - Restores health to all players in the radius.
+### Heal
+#### Restores health to all players in the radius.
 [gif - this means that you need to attach a gif here]
 ### Pressure - Animated ability that gives full resistance to damage.
 [gif]
