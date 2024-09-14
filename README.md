@@ -10,5 +10,5 @@ Adds the custom role SCP-999
 # INSTALLATION
 
 Download the dll and put it in plugins folder
-Download **[Map Editor Reborn]([https://github.com/Michal78900/MapEditorReborn])** dll and put it in plugins folder
+Download **[Map Editor Reborn](https://github.com/Michal78900/MapEditorReborn)** dll and put it in plugins folder
 Download the json and put it in the schematics folder of MER
