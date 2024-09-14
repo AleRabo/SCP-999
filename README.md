@@ -23,3 +23,6 @@
 - Thanks ``RisottoMan`` for providing the code and support.
 - Thanks ``power2008qwe`` for creating the model and animations.
 - Thanks ``Caty Foxt`` for the original idea.
+<p align="center">
+  <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Credit.png" alt="Credit">
+</p>
