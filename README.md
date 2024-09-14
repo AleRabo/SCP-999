@@ -17,8 +17,8 @@ REQUIRES MAPEDITOR REBORN
 
 ## Installation
 - [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
-- [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Configs/MER/Schematics ?``
-- [MapEditorReborn](https://github.com/Michal78900/MapEditorReborn) must have installed
+- [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) unzip to => ``EXILED/Configs/MapEditorReborn/Schematics``
+- [``MapEditorReborn``](https://github.com/Michal78900/MapEditorReborn) should already be installed
 
 ## Credits
 - Thanks RisottoMan for providing the code and support.
