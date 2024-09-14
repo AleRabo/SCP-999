@@ -19,5 +19,5 @@
 
 ## Credits
 - Thanks ``RisottoMan`` for providing the code and support.
-- Thanks <b>power2008qwe</b> for creating the model and animations.
-- Thanks <b>Caty Foxt</b> for the original idea.
+- Thanks ``power2008qwe`` for creating the model and animations.
+- Thanks ``Caty Foxt`` for the original idea.
