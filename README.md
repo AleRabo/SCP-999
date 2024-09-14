@@ -1,7 +1,7 @@
 # SCP999
 Adds the custom role SCP-999
 
-   ![img](https://img.shields.io/github/downloads/AleRabo/Better-RP/total.svg)
+   ![img](https://img.shields.io/github/downloads/AleRabo/SCP999/total.svg)
 
 
    REQUIRES MAPEDITOR REBORN
