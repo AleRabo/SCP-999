@@ -1,7 +1,7 @@
 <p align="center">
-<h1> SCP-999 - <b>"The Tickle Monster"</b></h1>
-<h2> Adds the custom role SCP-999</h2>
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png">
+  <h1> SCP-999 - "The Tickle Monster"</h1>
+  <h2> Adds the custom role SCP-999</h2>
+  <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png" alt="SCP-999 - `The Tickle Monster`">
 </p>
 
 ![img](https://img.shields.io/github/downloads/AleRabo/SCP999/total.svg)
