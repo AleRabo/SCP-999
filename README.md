@@ -5,13 +5,13 @@
 </p>
 
 ## Abilities
-1) **Heal** - Restores health to all players in the radius.
+- **Heal** - Restores health to all players in the radius.
 [gif]
-2) **Pressure** - Animated ability that gives full resistance to damage.
+- **Pressure** - Animated ability that gives full resistance to damage.
 [gif]
-3) **Effect** - Gives players different effects.
+- **Effect** - Gives players different effects.
 [gif]
-4) **Cute** - Makes funny Yapi sounds near kind players.
+- **Cute** - Makes funny Yapi sounds near kind players.
 [gif]
 
 ## Installation
