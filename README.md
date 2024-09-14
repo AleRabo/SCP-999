@@ -16,4 +16,4 @@ Download the json and put it in the schematics folder of MER
 ## Credits
 - Thanks RisottoMan for ...
 - Thanks power2008qwe created model
-- Thanks ... original idea
+- Thanks Caty Foxt original idea
