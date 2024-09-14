@@ -8,8 +8,11 @@ REQUIRES MAPEDITOR REBORN
 
 ## Abilities
 ### Heal -
+[video]
 ### Pressure
+[video]
 ### ...
+[video]
 
 ## Installation
 Download the dll and put it in plugins folder
