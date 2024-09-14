@@ -16,9 +16,9 @@ REQUIRES MAPEDITOR REBORN
 [gif]
 
 ## Installation
-Download the dll and put it in plugins folder
-Download **[Map Editor Reborn](https://github.com/Michal78900/MapEditorReborn)** dll and put it in plugins folder
-Download the json and put it in the schematics folder of MER
+- [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
+- [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Configs/MER/Schematics ?``
+- [MapEditorReborn](https://github.com/Michal78900/MapEditorReborn) must have installed
 
 ## Credits
 - Thanks RisottoMan for providing the code and support.
