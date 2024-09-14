@@ -1,18 +1,18 @@
-# SCP-999 - <b>"The Tickle Monster"</b>
+#<p align="center"> SCP-999 - <b>"The Tickle Monster"</b>
 ## Adds the custom role SCP-999
 ![Logo](https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png)
-
+</p>
 
 ![img](https://img.shields.io/github/downloads/AleRabo/SCP999/total.svg)
 REQUIRES MAPEDITOR REBORN
 
 ## Abilities
-### Heal -
-[video]
+### Heal
+[gif]
 ### Pressure
-[video]
-### ...
-[video]
+[gif]
+### Effect
+[gif]
 
 ## Installation
 Download the dll and put it in plugins folder
