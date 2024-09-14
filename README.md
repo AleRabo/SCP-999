@@ -1,4 +1,4 @@
-#<p align="center"> SCP-999 - <b>"The Tickle Monster"</b>
+<p align="center"># SCP-999 - <b>"The Tickle Monster"</b>
 ## Adds the custom role SCP-999
 ![Logo](https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png)
 </p>
