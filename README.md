@@ -7,6 +7,9 @@
 REQUIRES MAPEDITOR REBORN
 
 ## Abilities
+### Heal -
+### Pressure
+### ...
 
 ## Installation
 Download the dll and put it in plugins folder
