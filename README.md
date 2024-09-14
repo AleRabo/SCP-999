@@ -24,5 +24,5 @@
 - Thanks ``power2008qwe`` for creating the model and animations.
 - Thanks ``Caty Foxt`` for the original idea.
 <p align="center">
-  <img width="200" src="https://github.com/AleRabo/SCP999/blob/main/Photos/Credit.png" alt="Credit">
+  <img width="400" src="https://github.com/AleRabo/SCP999/blob/main/Photos/Credit.png" alt="Credit">
 </p>
