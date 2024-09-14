@@ -1,6 +1,6 @@
 <p align="center">
-# SCP-999 - <b>"The Tickle Monster"</b>
-## Adds the custom role SCP-999
+<h1 align="center"> SCP-999 - <b>"The Tickle Monster"</b></h1>
+<h2 align="center"> Adds the custom role SCP-999</h2>
 <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png">
 </p>
 
