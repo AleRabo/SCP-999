@@ -4,9 +4,6 @@
   <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main.png" alt="SCP-999 - `The Tickle Monster`">
 </p>
 
-![img](https://img.shields.io/github/downloads/AleRabo/SCP999/total.svg)
-REQUIRES MAPEDITOR REBORN
-
 ## Abilities
 ### Heal
 [gif]
@@ -21,6 +18,6 @@ REQUIRES MAPEDITOR REBORN
 - [``MapEditorReborn``](https://github.com/Michal78900/MapEditorReborn) should already be installed
 
 ## Credits
-- Thanks RisottoMan for providing the code and support.
+- Thanks ``RisottoMan`` for providing the code and support.
 - Thanks <b>power2008qwe</b> for creating the model and animations.
 - Thanks <b>Caty Foxt</b> for the original idea.
