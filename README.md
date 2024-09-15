@@ -7,7 +7,7 @@
 # Abilities
 ## 😇 **Heal** - Restores health to all players in the radius.
 [gif]
-## 🫠 **Pressure** - Animated ability that gives full resistance to damage.
+## 🫠 **Animations** - Animated abilities.
 [gif]
 ## 👻 **Effect** - Gives players different effects.
 [gif]
