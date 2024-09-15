@@ -21,7 +21,7 @@
 
 # Commands
 - Give permission ``.scp999`` to your role in ``EXILED/Configs/permissions.yml``
-- Use ``scp999 (me / id / all)`` to become scp999, where `me` is you, `id` is the player's id, `all` is all players.
+- Use ``scp999 (me / id / all)`` where `me` is you, `id` is the player's id, `all` is all players
 
 # Credits
 - Thanks ``RisottoMan`` for providing the code and support.
