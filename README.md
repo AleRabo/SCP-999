@@ -19,6 +19,10 @@
 - [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) unzip to => ``EXILED/Configs/MapEditorReborn/Schematics``
 - [``MapEditorReborn``](https://github.com/Michal78900/MapEditorReborn) should already be installed
 
+# Commands
+- Give permission ``.scp999`` to your role in ``EXILED/Configs/permissions.yml``
+- Use ``scp999 (me / id / all)`` to become scp999, where `me` is you, `id` is the player's id, `all` is all players.
+
 # Credits
 - Thanks ``RisottoMan`` for providing the code and support.
 - Thanks ``power2008qwe`` for creating the model and animations.
