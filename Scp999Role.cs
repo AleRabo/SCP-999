@@ -1,6 +1,5 @@
-﻿using Exiled.API.Features;
+using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
-using AudioPlayer.API;
 using PlayerRoles;
 using UnityEngine;
 using YamlDotNet.Serialization;
@@ -8,6 +7,9 @@ using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
 using System.Collections.Generic;
 using System;
+using Exiled.API.Features.Spawn;
+using Exiled.API.Enums;
+using Exiled.API.Features.Doors;
 
 namespace SCP999
 {
@@ -44,11 +46,7 @@ namespace SCP999
             Limit = 1,
             DynamicSpawnPoints = new List<DynamicSpawnPoint>()
             {
-                new()
-                {
-                    Chance = 25,
-                    Location = SpawnLocationType.Inside330,
-                },
+                new() { Chance = 100, Location = SpawnLocationType.Inside330 }
             }
         };
 
@@ -117,15 +115,26 @@ namespace SCP999
                     player.AddItem(itemType);
                 }
 
+                foreach (Room room in Room.List)
+                {
+                    if (room.Type == RoomType.Lcz330)
+                    {
+                        foreach (Door door in room.Doors)
+                        {
+                            door.IsOpen = true;
+                        }
+                    }
+                }
             }
         }
 
         public override void RemoveRole(Player player)
         {
+                scp999Model.Destroy();
 
-            AudioController.DisconnectDummy(999);
-            scp999Model.Destroy();
+            // Reset player's scale
             player.Scale = Vector3.one;
+
             TrackedPlayers.Remove(player);
         }
         public class AbilityConfig
