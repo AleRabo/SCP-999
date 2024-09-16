@@ -11,6 +11,8 @@
 
 ## 👻 **Effect** - Gives players different effects.
 
+<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/lol.gif" alt="Lol">
+
 ## 😻 **Cute** - Funni blob.
 
 <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
