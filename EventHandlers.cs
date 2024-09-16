@@ -5,8 +5,6 @@ using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
 using MEC;
 using PlayerRoles;
-using PlayerRoles.PlayableScps.Scp939;
-using SCPSLAudioApi.AudioCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +38,15 @@ namespace SCP999
             {
                 customRole.RemoveRole(ev.Player);
             }
+        }
+        public void PickingUpItem(SearchingPickupEventArgs ev)
+        {
+            ev.IsAllowed = false;
+        }
+
+        public void Dropping(DroppingItemEventArgs ev)
+        {
+            ev.IsAllowed = false;
         }
 
         public void Spawned(SpawnedEventArgs ev)
