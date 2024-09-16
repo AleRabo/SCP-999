@@ -6,17 +6,17 @@
 
 # Abilities
 ## 😇 **Heal** - Restores health to all players in the radius.
-
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Healing.gif" alt="SCP-999 - `Abilities`">
-
+<p align="center">
+  <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Healing.gif" alt="SCP-999 - `Abilities`">
+</p>
 ## 🫠 **Animations** - Animated abilities.
-
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Anim.gif" alt="SCP-999 - `Abilities`">
-
+<p align="center">
+  <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Anim.gif" alt="SCP-999 - `Abilities`">
+</p>
 ## 👻 **Effect** - Gives players different effects.
-
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
-
+<p align="center">
+  <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
+</p>
 # Installation
 - [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
 - [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) unzip to => ``EXILED/Configs/MapEditorReborn/Schematics``
