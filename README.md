@@ -17,10 +17,6 @@
 
 <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
 
-## 😻 **Cute** - Funni blob.
-
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/lol.gif" alt="Lol">
-
 # Installation
 - [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
 - [``Schematic.tar.gz``](https://github.com/AleRabo/SCP999/releases/latest) unzip to => ``EXILED/Configs/MapEditorReborn/Schematics``
