@@ -1,4 +1,4 @@
-﻿using Exiled.API.Features;
+using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using System;
 using PlayerHandlers = Exiled.Events.Handlers.Player;
@@ -33,6 +33,8 @@ namespace SCP999
             PlayerHandlers.Spawned += EventHandlers.Spawned;
             PlayerHandlers.UsingItem += EventHandlers.OnUsingItem;
             PlayerHandlers.ChangingRole += EventHandlers.RoleChanged;
+            PlayerHandlers.SearchingPickup += EventHandlers.PickingUpItem;
+            PlayerHandlers.DroppingItem += EventHandlers.Dropping;
 
             base.OnEnabled();
         }
@@ -42,6 +44,7 @@ namespace SCP999
             PlayerHandlers.Spawned -= EventHandlers.Spawned;
             PlayerHandlers.UsingItem -= EventHandlers.OnUsingItem;
             PlayerHandlers.ChangingRole -= EventHandlers.RoleChanged;
+            PlayerHandlers.DroppingItem -= EventHandlers.Dropping;
 
             EventHandlers = null;
             Config.Scp999RoleConfig.Unregister();
