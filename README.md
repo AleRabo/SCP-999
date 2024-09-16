@@ -11,7 +11,7 @@
 [gif]
 ## 👻 **Effect** - Gives players different effects.
 [gif]
-## 😻 **Cute** - Makes funny Yapi sounds near kind players.
+## 😻 **Cute** - Funni blop.
 [gif]
 
 # Installation
