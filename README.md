@@ -6,13 +6,12 @@
 
 # Abilities
 ## 😇 **Heal** - Restores health to all players in the radius.
-[gif]
+
 ## 🫠 **Animations** - Animated abilities.
-[gif]
+
 ## 👻 **Effect** - Gives players different effects.
-[gif]
+
 ## 😻 **Cute** - Funni blob.
-[gif]
 
 <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Abilities.png" alt="SCP-999 - `Abilities`">
 
