@@ -11,11 +11,11 @@
 
 ## 👻 **Effect** - Gives players different effects.
 
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/lol.gif" alt="Lol">
+<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
 
 ## 😻 **Cute** - Funni blob.
 
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
+<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/lol.gif" alt="Lol">
 
 # Installation
 - [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
