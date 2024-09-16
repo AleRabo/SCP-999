@@ -11,7 +11,7 @@
 [gif]
 ## 👻 **Effect** - Gives players different effects.
 [gif]
-## 😻 **Cute** - Funni blop.
+## 😻 **Cute** - Funni blob.
 [gif]
 
 # Installation
