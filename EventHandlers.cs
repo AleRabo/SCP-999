@@ -1,4 +1,4 @@
-﻿using Exiled.API.Enums;
+using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
@@ -41,12 +41,15 @@ namespace SCP999
         }
         public void PickingUpItem(SearchingPickupEventArgs ev)
         {
-            ev.IsAllowed = false;
+            // Check if the player has the custom role (ID 999)
+            if (ev.Player.GetCustomRoles().Contains(CustomRole.Get(999)))
+                ev.IsAllowed = false;
         }
 
         public void Dropping(DroppingItemEventArgs ev)
         {
-            ev.IsAllowed = false;
+            if (ev.Player.GetCustomRoles().Contains(CustomRole.Get(999)))
+                ev.IsAllowed = false;
         }
 
         public void Spawned(SpawnedEventArgs ev)
