@@ -11,6 +11,8 @@
 
 ## 🫠 **Animations** - Animated abilities.
 
+<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Adrenaline.gif" alt="SCP-999 - `Abilities`">
+
 ## 👻 **Effect** - Gives players different effects.
 
 <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Ability.png" alt="SCP-999 - `Abilities`">
