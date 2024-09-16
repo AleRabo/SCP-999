@@ -14,7 +14,7 @@
 ## 😻 **Cute** - Funni blob.
 [gif]
 
-<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/abilities.jpeg" alt="SCP-999 - `The Tickle Monster`">
+<img src="https://github.com/AleRabo/SCP999/blob/main/Photos/abilities" alt="SCP-999 - `The Tickle Monster`">
 
 # Installation
 - [``SCP999.dll``](https://github.com/AleRabo/SCP999/releases/latest) move to => ``EXILED/Plugins``
