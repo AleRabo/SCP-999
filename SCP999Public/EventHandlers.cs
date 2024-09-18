@@ -1,4 +1,4 @@
-﻿using Exiled.API.Enums;
+using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API;
@@ -35,11 +35,15 @@ namespace SCP999
 
         public void RoleChanged(ChangingRoleEventArgs ev)
         {
-            var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
-            if (customRole != null && ev.Player.GetCustomRoles().Contains(customRole) && !ev.NewRole.GetStartingInventory().Contains(ItemType.SCP207))
+            try
             {
-                customRole.RemoveRole(ev.Player);
+                var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+                if (customRole != null && ev.Player.GetCustomRoles().Contains(customRole) && !ev.NewRole.GetStartingInventory().Contains(ItemType.SCP207))
+                {
+                    customRole.RemoveRole(ev.Player);
+                }
             }
+            catch (Exception ex) { }
         }
         public void PickingUpItem(SearchingPickupEventArgs ev)
         {
@@ -54,6 +58,37 @@ namespace SCP999
             var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
             if (ev.Player.GetCustomRoles().Contains(customRole))
                 ev.IsAllowed = false;
+        }
+
+        public void EnterPocket(EnteringPocketDimensionEventArgs ev)
+        {
+            var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+            if (ev.Player.GetCustomRoles().Contains(customRole) && Plugin.Singleton.Config.Scp999GodMode)
+                ev.IsAllowed = false;
+        }
+
+        public void ExitPocket(FailingEscapePocketDimensionEventArgs ev)
+        {
+            var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+            if (ev.Player.GetCustomRoles().Contains(customRole))
+                ev.IsAllowed = false;
+                ev.Player.Position = Room.Random().Position + new Vector3(0, 1, 0);
+                ev.Player.Health -= 100;
+        }
+
+        public void Hurting(HurtingEventArgs ev)
+        {
+            var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+            if (ev.Player.GetCustomRoles().Contains(customRole))
+            {
+                if (ev.IsInstantKill || ev.Amount < customRole.MaxHealth && ev.DamageHandler.Type != DamageType.PocketDimension)
+                {
+                    ev.IsAllowed = false;
+                    ev.Attacker?.ShowHitMarker();
+                    ev.Player.Health -= 100;
+                }
+
+            }
         }
 
         public void Spawned(SpawnedEventArgs ev)
@@ -109,6 +144,7 @@ namespace SCP999
                     float effectDuration = ability.EffectDuration;
 
                     animator.Play("Pressure");
+                    AudioPlayer.PlayPlayerAudio(ev.Player, "yippe.ogg", Plugin.Singleton.Config.Volume);
 
                     // Perform ability logic based on the item type
                     switch (ev.Item.Type)
