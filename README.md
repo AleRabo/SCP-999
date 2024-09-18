@@ -1,6 +1,5 @@
 <h1 align="center"> SCP-999 - "The Tickle Monster"</h1>
 <h2 align="center"> 😍 Adds a cute gelatin monster to the game 🥰</h2>
-   ![img](https://img.shields.io/github/downloads/AleRabo/SCP-999/total.svg)
 <p align="center">
   <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main1.png" alt="SCP-999 - `The Tickle Monster`">
 </p>
@@ -35,6 +34,7 @@
 - Use ``scp999 (me / id / all)`` where `me` is you, `id` is the player's id, `all` is all players
 
 # Credits
+ ![img](https://img.shields.io/github/downloads/AleRabo/SCP-999/total.svg)
 - Thanks ``RisottoMan`` for providing the code and support.
 - Thanks ``power2008qwe`` for creating the model and animations.
 - Thanks ``Caty Foxt`` for the original idea.
