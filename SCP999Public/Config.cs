@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Exiled.API.Interfaces;
 using static SCP999.Scp999Role;
@@ -21,6 +21,12 @@ namespace SCP999
 
         [Description("Configs for the SCP-999 role players turn into.")]
         public Scp999Role Scp999RoleConfig { get; set; } = new();
+
+        [Description("The path where you store all the audio files.")]
+        public string AudioPath { get; set; } = "";
+
+        [Description("The volume of all the audio files.")]
+        public byte Volume { get; set; } = 100;
 
         [Description("SCP-999 AOE abiliities range.")]
         public Dictionary<string, AbilityConfig> Abilities { get; set; } = new Dictionary<string, AbilityConfig>()
