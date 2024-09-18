@@ -1,4 +1,4 @@
-﻿using Exiled.API.Features;
+using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using PlayerRoles;
 using UnityEngine;
@@ -10,6 +10,7 @@ using System;
 using Exiled.API.Features.Spawn;
 using Exiled.API.Enums;
 using Exiled.API.Features.Doors;
+using SCPSLAudioApi.AudioCore;
 
 namespace SCP999
 {
@@ -59,6 +60,7 @@ namespace SCP999
 
         public static Animator animator;
         public static SchematicObject scp999Model;
+        public static AudioPlayerBase audio;
         public override void AddRole(Player player)
         {
             Log.Debug($"Player is NPC: {player.IsNPC}");
@@ -92,7 +94,6 @@ namespace SCP999
 
                     scp999Model = ObjectSpawner.SpawnSchematic("SCP_999", player.Position, Quaternion.identity, player.Scale, null, false);
                     animator = scp999Model.GetComponentInChildren<Animator>(true);
-
 
                     scp999Model.transform.parent = player.Transform;
                     scp999Model.transform.rotation = new Quaternion();
@@ -130,12 +131,16 @@ namespace SCP999
 
         public override void RemoveRole(Player player)
         {
+            try
+            {
                 scp999Model.Destroy();
 
-            // Reset player's scale
-            player.Scale = Vector3.one;
+                // Reset player's scale
+                player.Scale = Vector3.one;
 
-            TrackedPlayers.Remove(player);
+                TrackedPlayers.Remove(player);
+            }
+            catch { Exception ex; }
         }
         public class AbilityConfig
         {
