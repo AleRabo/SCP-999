@@ -4,6 +4,8 @@
   <img src="https://github.com/AleRabo/SCP999/blob/main/Photos/Main1.png" alt="SCP-999 - `The Tickle Monster`">
 </p>
 
+   ![img](https://img.shields.io/github/downloads/AleRabo/SCP-999/total.svg)
+
 # Abilities
 ## 😇 **Heal** - Restores health to all players in the radius.
 
