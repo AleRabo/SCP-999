@@ -10,10 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static SCP999.Scp999Role;
 
 namespace SCP999;
-public class EventHandlers
+public class EventHandler
 {
     private static class AbilityMapping
     {
@@ -141,7 +140,7 @@ public class EventHandlers
                 float range = ability.Range;
                 float effectDuration = ability.EffectDuration;
 
-                animator.Play("Pressure");
+                //animator.Play("Pressure");
                 AudioPlayer.PlayPlayerAudio(ev.Player, "yippe.ogg", Plugin.Singleton.Config.Volume);
 
                 // Perform ability logic based on the item type

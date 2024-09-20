@@ -1,62 +1,55 @@
-using Exiled.API.Features;
 using System;
-using PlayerHandlers = Exiled.Events.Handlers.Player;
-using Exiled.CustomRoles.API;
 using HarmonyLib;
+using Exiled.CustomRoles.API;
+using Exiled.API.Features;
 
 namespace SCP999;
 public class Plugin : Plugin<Config, Translation>
 {
-    public static Plugin Singleton;
-
-    // Plugin properties
     public override string Name => "SCP999";
-    public override string Prefix => "SCP999";
-    public override string Author => "AleRabo";
-    public override Version Version => new Version(1, 0, 0);
-    public override Version RequiredExiledVersion => new Version(8, 11, 0);
-    internal Harmony harmony;
-
-    /// <summary>
-    /// The event handlers <see cref="SCP999.EventHandlers"/> class.
-    /// </summary>
-    private EventHandlers EventHandlers;
+    public override string Author => "AleRabo && RisottoMan";
+    public override Version Version => new(1, 0, 0);
+    public override Version RequiredExiledVersion => new(8, 11, 0);
+    
+    private Harmony _harmony;
+    private EventHandler _eventHandler;
+    public static Plugin Singleton;
 
     public override void OnEnabled()
     {
         Singleton = this;
-        EventHandlers = new EventHandlers();
+        _eventHandler = new EventHandler();
 
         Config.Scp999RoleConfig.Register();
 
-        harmony = new Harmony($"SCP999 - {DateTime.Now}");
-        harmony.PatchAll();
+        _harmony = new Harmony($"SCP999 - {DateTime.Now}");
+        _harmony.PatchAll();
 
-        PlayerHandlers.Spawned += EventHandlers.Spawned;
-        PlayerHandlers.UsingItem += EventHandlers.OnUsingItem;
-        PlayerHandlers.ChangingRole += EventHandlers.RoleChanged;
-        PlayerHandlers.SearchingPickup += EventHandlers.PickingUpItem;
-        PlayerHandlers.DroppingItem += EventHandlers.Dropping;
-        PlayerHandlers.EnteringPocketDimension += EventHandlers.EnterPocket;
-        PlayerHandlers.FailingEscapePocketDimension += EventHandlers.ExitPocket;
-        PlayerHandlers.Hurting += EventHandlers.Hurting;
+        Exiled.Events.Handlers.Player.Spawned += _eventHandler.Spawned;
+        Exiled.Events.Handlers.Player.UsingItem += _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.ChangingRole += _eventHandler.RoleChanged;
+        Exiled.Events.Handlers.Player.SearchingPickup += _eventHandler.PickingUpItem;
+        Exiled.Events.Handlers.Player.DroppingItem += _eventHandler.Dropping;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension += _eventHandler.EnterPocket;
+        Exiled.Events.Handlers.Player.FailingEscapePocketDimension += _eventHandler.ExitPocket;
+        Exiled.Events.Handlers.Player.Hurting += _eventHandler.Hurting;
 
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        PlayerHandlers.Spawned -= EventHandlers.Spawned;
-        PlayerHandlers.UsingItem -= EventHandlers.OnUsingItem;
-        PlayerHandlers.ChangingRole -= EventHandlers.RoleChanged;
-        PlayerHandlers.DroppingItem -= EventHandlers.Dropping;
-        PlayerHandlers.EnteringPocketDimension -= EventHandlers.EnterPocket;
-        PlayerHandlers.FailingEscapePocketDimension -= EventHandlers.ExitPocket;
-        PlayerHandlers.Hurting -= EventHandlers.Hurting;
-
-        EventHandlers = null;
+        Exiled.Events.Handlers.Player.Spawned -= _eventHandler.Spawned;
+        Exiled.Events.Handlers.Player.UsingItem -= _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.ChangingRole -= _eventHandler.RoleChanged;
+        Exiled.Events.Handlers.Player.DroppingItem -= _eventHandler.Dropping;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension -= _eventHandler.EnterPocket;
+        Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= _eventHandler.ExitPocket;
+        Exiled.Events.Handlers.Player.Hurting -= _eventHandler.Hurting;
+        
         Config.Scp999RoleConfig.Unregister();
-        harmony.UnpatchAll();
+        _eventHandler = null;
+        _harmony.UnpatchAll();
 
         Singleton = null;
         base.OnDisabled();

@@ -7,7 +7,7 @@ using System.Reflection;
 namespace SCP999;
 
 [HarmonyPatch(typeof(Player))]
-public class PlayerList
+internal class PlayerList
 {
     public static MethodInfo TargetMethod()
     {
@@ -16,7 +16,6 @@ public class PlayerList
 
     public static void Postfix(ref List<Player> __result)
     {
-
         if (AudioPlayer.AudioBot == null) return;
 
         Player dummy = Player.Get(AudioPlayer.AudioBot);
