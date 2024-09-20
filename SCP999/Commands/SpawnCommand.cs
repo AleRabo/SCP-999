@@ -1,9 +1,9 @@
-﻿using CommandSystem;
+﻿using System;
+using PlayerRoles;
+using CommandSystem;
 using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Permissions.Extensions;
-using PlayerRoles;
-using System;
 
 namespace SCP999;
 
@@ -11,7 +11,7 @@ namespace SCP999;
 public class SCP999Command : ICommand
 {
     public string Command { get; } = "scp999";
-    public string[] Aliases { get; } = new string[] { "scp999 (me / id / all)" };
+    public string[] Aliases { get; } = { "scp999 (me / id / all)" };
     public string Description { get; } = "Make a player (id / all) become SCP-999.";
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

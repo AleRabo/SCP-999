@@ -5,152 +5,132 @@ using UnityEngine;
 using YamlDotNet.Serialization;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
-using System.Collections.Generic;
-using System;
+using SCPSLAudioApi.AudioCore;
 using Exiled.API.Features.Spawn;
 using Exiled.API.Enums;
 using Exiled.API.Features.Doors;
-using SCPSLAudioApi.AudioCore;
+using System.Collections.Generic;
+using System;
 
-namespace SCP999;
-public class Scp999Role : CustomRole
+namespace SCP999
 {
-    public override uint Id { get; set; } = 999;
-
-    /// <summary>
-    /// Gets or sets the role that is visible to players on the server aside from the player playing this role.
-    /// </summary>
-    public RoleTypeId VisibleRole { get; set; } = RoleTypeId.Tutorial;
-
-    /// <inheritdoc />
-    public override int MaxHealth { get; set; } = 999;
-
-    /// <inheritdoc />
-    public override string Name { get; set; } = "SCP-999";
-
-    /// <inheritdoc />
-    public override string Description { get; set; } =
-        "The tickle monster.";
-
-    /// <inheritdoc />
-    public override string CustomInfo { get; set; } = "SCP-999";
-
-    /// <summary>
-    /// Gets or sets the custom scale factor for players when they are this role.
-    /// </summary>
-    public override Vector3 Scale { get; set; } = new(.5f, .5f, .5f);
-
-    public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties()
+    public class Scp999Role : CustomRole
     {
-        Limit = 1,
-        DynamicSpawnPoints = new List<DynamicSpawnPoint>()
+        public override uint Id { get; set; } = 999;
+
+        // Role and health settings
+        public override RoleTypeId VisibleRole { get; set; } = RoleTypeId.Tutorial;
+        public override int MaxHealth { get; set; } = 999;
+        public override string Name { get; set; } = "SCP-999";
+        public override string Description { get; set; } = "The tickle monster.";
+        public override string CustomInfo { get; set; } = "SCP-999";
+
+        // Player scaling
+        public override Vector3 Scale { get; set; } = new(.5f, .5f, .5f);
+
+        // Spawn properties
+        public override SpawnProperties SpawnProperties { get; set; } = new SpawnProperties
         {
-            new() { Chance = 100, Location = SpawnLocationType.Inside330 }
-        }
-    };
+            Limit = 1,
+            DynamicSpawnPoints = new List<DynamicSpawnPoint>
+            {
+                new() { Chance = 100, Location = SpawnLocationType.Inside330 }
+            }
+        };
 
-    // The following properties are only defined so that we can add the YamlIgnore attribute to them so they cannot be changed via configs.
-    /// <inheritdoc />
-    [YamlIgnore]
-    public override RoleTypeId Role { get; set; } = RoleTypeId.Tutorial;
+        // Inventory
+        public override List<string> Inventory { get; set; } = new() { "SCP207", "Adrenaline", "Medkit" };
 
-    public override List<string> Inventory { get; set; } = new List<string>() { "SCP207", "Adrenaline", "Medkit" };
+        // Fields for animations and model
+        public static Animator Animator { get; private set; }
+        public static SchematicObject Scp999Model { get; private set; }
+        public static AudioPlayerBase Audio { get; private set; }
 
-    public static Animator animator;
-    public static SchematicObject scp999Model;
-    public static AudioPlayerBase audio;
-    public override void AddRole(Player player)
-    {
-        Log.Debug($"Player is NPC: {player.IsNPC}");
-        Log.Debug($"Player Nickname: {player.Nickname}");
-        Log.Debug($"Tracked Players Count: {TrackedPlayers.Count}");
-        Log.Debug($"Spawn Limit: {SpawnProperties.Limit}");
+        // Yaml ignore for certain properties
+        [YamlIgnore]
+        public override RoleTypeId Role { get; set; } = RoleTypeId.Tutorial;
 
-        if (!player.IsNPC && player.Nickname != "SCP-999" && TrackedPlayers.Count < SpawnProperties.Limit)
+        public override void AddRole(Player player)
         {
-            base.AddRole(player); // Ensure the custom role system applies the role
+            if (player.IsNPC || player.Nickname == "SCP-999" || TrackedPlayers.Count >= SpawnProperties.Limit)
+                return;
 
+            base.AddRole(player);
 
             player.Role.Set(Role, RoleSpawnFlags.None);
-            player.Health = MaxHealth; // Set health
+            player.Health = MaxHealth;
             player.IsGodModeEnabled = Plugin.Singleton.Config.Scp999GodMode;
 
             try
             {
                 player.ReferenceHub.transform.localScale = Vector3.zero;
 
-                // Synchronize the player's state with others
-                foreach (Player target in Player.List)
+                foreach (var target in Player.List)
                 {
-                    if (target != player) // No need to send the message to the player themselves
+                    if (target != player)
                         Server.SendSpawnMessage?.Invoke(null, new object[] { player.ReferenceHub.networkIdentity, target.Connection });
                 }
 
                 player.ReferenceHub.transform.localScale = Scale;
 
-                scp999Model = ObjectSpawner.SpawnSchematic("SCP_999", player.Position, Quaternion.identity, player.Scale, null, false);
-                animator = scp999Model.GetComponentInChildren<Animator>(true);
+                // Spawn SCP-999 model and set animator
+                Scp999Model = ObjectSpawner.SpawnSchematic("SCP_999", player.Position, Quaternion.identity, player.Scale, null, false);
+                Animator = Scp999Model.GetComponentInChildren<Animator>(true);
 
-                scp999Model.transform.parent = player.Transform;
-                scp999Model.transform.rotation = new Quaternion();
-                scp999Model.transform.position = player.Position + new Vector3(0, -.25f, 0);
-
+                Scp999Model.transform.SetParent(player.Transform);
+                Scp999Model.transform.localPosition = new Vector3(0, -0.25f, 0);
             }
             catch (Exception exception)
             {
-                Log.Error($" error: {exception}");
+                Log.Error($"Error during AddRole: {exception}");
             }
-            List<ItemType> inventory = new()
-                {
-                    ItemType.SCP207,
-                    ItemType.Adrenaline,
-                    ItemType.Medkit,
-                };
 
-            foreach (ItemType itemType in inventory)
+            // Assign items to player
+            var inventory = new List<ItemType> { ItemType.SCP207, ItemType.Adrenaline, ItemType.Medkit };
+            foreach (var itemType in inventory)
+            {
                 player.AddItem(itemType);
-            
+            }
 
-            foreach (Room room in Room.List)
+            // Open doors in LCZ-330 room
+            foreach (var room in Room.List)
             {
                 if (room.Type == RoomType.Lcz330)
                 {
-                    foreach (Door door in room.Doors)
+                    foreach (var door in room.Doors)
                     {
                         door.IsOpen = true;
                     }
                 }
             }
         }
-    }
 
-    public override void RemoveRole(Player player)
-    {
-        try
+        public override void RemoveRole(Player player)
         {
-            scp999Model.Destroy();
-
-            // Reset player's scale
-            player.Scale = Vector3.one;
-
-            TrackedPlayers.Remove(player);
+            try
+            {
+                Scp999Model.Destroy();
+                player.Scale = Vector3.one;
+                TrackedPlayers.Remove(player);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error during RemoveRole: {ex}");
+            }
         }
-        catch { Exception ex; }
-    }
-    public class AbilityConfig
-    {
-        // Properties for Range and Effect Duration
-        public float Range { get; set; }
-        public float EffectDuration { get; set; }
 
-        // Default constructor (required for YAML deserialization)
-        public AbilityConfig() { }
-
-        // Constructor with parameters (for manual creation)
-        public AbilityConfig(float range, float effectDuration)
+        public class AbilityConfig
         {
-            Range = range;
-            EffectDuration = effectDuration;
+            public float Range { get; set; }
+            public float EffectDuration { get; set; }
+
+            // Constructors for YAML deserialization and manual creation
+            public AbilityConfig() { }
+            public AbilityConfig(float range, float effectDuration)
+            {
+                Range = range;
+                EffectDuration = effectDuration;
+            }
         }
     }
 }

@@ -1,25 +1,27 @@
 ﻿using HarmonyLib;
 using PluginAPI.Core;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace SCP999;
-
-[HarmonyPatch(typeof(Player))]
-public class PlayerList
+namespace SCP999
 {
-    public static MethodInfo TargetMethod()
+    [HarmonyPatch(typeof(Player))]
+    public class PlayerList
     {
-        return typeof(Player).GetMethods().First(r => r.Name == "GetPlayers");
-    }
+        public static MethodInfo TargetMethod()
+        {
+            return typeof(Player).GetMethods().First(r => r.Name == "GetPlayers");
+        }
 
-    public static void Postfix(ref List<Player> __result)
-    {
+        public static void Postfix(ref List<Player> __result)
+        {
 
-        if (AudioPlayer.AudioBot == null) return;
+            if (AudioPlayer.AudioBot == null) return;
 
-        Player dummy = Player.Get(AudioPlayer.AudioBot);
-        __result.Remove(dummy);
+            Player dummy = Player.Get(AudioPlayer.AudioBot);
+            __result.Remove(dummy);
+        }
     }
 }
