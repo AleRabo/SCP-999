@@ -2,6 +2,8 @@ using System;
 using HarmonyLib;
 using Exiled.CustomRoles.API;
 using Exiled.API.Features;
+using SCP999.Abilities;
+using SCP999.Interfaces;
 
 namespace SCP999;
 public class Plugin : Plugin<Config, Translation>
@@ -25,6 +27,9 @@ public class Plugin : Plugin<Config, Translation>
         _harmony = new Harmony($"SCP999 - {DateTime.Now}");
         _harmony.PatchAll();
 
+        // Enable abilities - a temporary solution
+        Heal heal = new Heal();
+        
         Exiled.Events.Handlers.Player.Spawned += _eventHandler.Spawned;
         Exiled.Events.Handlers.Player.UsingItem += _eventHandler.OnUsingItem;
         Exiled.Events.Handlers.Player.ChangingRole += _eventHandler.RoleChanged;
@@ -33,7 +38,7 @@ public class Plugin : Plugin<Config, Translation>
         Exiled.Events.Handlers.Player.EnteringPocketDimension += _eventHandler.EnterPocket;
         Exiled.Events.Handlers.Player.FailingEscapePocketDimension += _eventHandler.ExitPocket;
         Exiled.Events.Handlers.Player.Hurting += _eventHandler.Hurting;
-
+        
         base.OnEnabled();
     }
 
@@ -46,6 +51,9 @@ public class Plugin : Plugin<Config, Translation>
         Exiled.Events.Handlers.Player.EnteringPocketDimension -= _eventHandler.EnterPocket;
         Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= _eventHandler.ExitPocket;
         Exiled.Events.Handlers.Player.Hurting -= _eventHandler.Hurting;
+        
+        // Disable abilities - a temporary solution
+        Ability.DisableAll();
         
         Config.Scp999RoleConfig.Unregister();
         _eventHandler = null;

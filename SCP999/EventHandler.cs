@@ -60,7 +60,7 @@ public class EventHandler
     public void EnterPocket(EnteringPocketDimensionEventArgs ev)
     {
         var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
-        if (ev.Player.GetCustomRoles().Contains(customRole) && Plugin.Singleton.Config.Scp999GodMode)
+        if (ev.Player.GetCustomRoles().Contains(customRole) && Plugin.Singleton.Config.IsGodModeEnabled)
             ev.IsAllowed = false;
     }
 
@@ -68,9 +68,11 @@ public class EventHandler
     {
         var customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
         if (ev.Player.GetCustomRoles().Contains(customRole))
+        {
             ev.IsAllowed = false;
             ev.Player.Position = Room.Random().Position + new Vector3(0, 1, 0);
             ev.Player.Health -= 100;
+        }
     }
 
     public void Hurting(HurtingEventArgs ev)
@@ -84,7 +86,6 @@ public class EventHandler
                 ev.Attacker?.ShowHitMarker();
                 ev.Player.Health -= 100;
             }
-
         }
     }
 

@@ -73,7 +73,7 @@ public class Scp999Role : CustomRole
 
             player.Role.Set(Role, RoleSpawnFlags.None);
             player.Health = MaxHealth; // Set health
-            player.IsGodModeEnabled = Plugin.Singleton.Config.Scp999GodMode;
+            player.IsGodModeEnabled = Plugin.Singleton.Config.IsGodModeEnabled;
 
             try
             {

@@ -12,7 +12,7 @@ public class Config : IConfig
     public bool Debug { get; set; } = false;
 
     [Description("Is SCP-999 immortal")]
-    public bool Scp999GodMode { get; set; } = false;
+    public bool IsGodModeEnabled { get; set; } = false;
 
     [Description("Configs for the SCP-999 role players turn into.")]
     public Scp999Role Scp999RoleConfig { get; set; } = new();
@@ -33,4 +33,6 @@ public class Config : IConfig
     
     [Description("Does the SpeedBoost ability slow SCPs?")]
     public bool SpeedSlowsSCPs { get; set; } = true;
+    [Description("Maximum range of SCP-999 abilities")]
+    public float MaxDistance { get; set; } = 10;
 }
