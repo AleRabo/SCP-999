@@ -9,4 +9,7 @@ public sealed class Translation : ITranslation
 
     [Description("The hint when the ability is ready.")]
     public string AbilityReadyText { get; set; } = "Ability ready!";
+    
+    [Description("The hint when the ability is error.")]
+    public string AbilityErrorText { get; set; } = "There are no players nearby that can be cured.";
 }

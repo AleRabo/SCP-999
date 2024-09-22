@@ -16,21 +16,10 @@ namespace SCP999;
 public class Scp999Role : CustomRole
 {
     public override uint Id { get; set; } = 999;
-
-    /// <summary>
-    /// Gets or sets the role that is visible to players on the server aside from the player playing this role.
-    /// </summary>
     public RoleTypeId VisibleRole { get; set; } = RoleTypeId.Tutorial;
-
-    /// <inheritdoc />
     public override int MaxHealth { get; set; } = 999;
-
-    /// <inheritdoc />
     public override string Name { get; set; } = "SCP-999";
-
-    /// <inheritdoc />
-    public override string Description { get; set; } =
-        "The tickle monster.";
+    public override string Description { get; set; } = "The tickle monster.";
 
     /// <inheritdoc />
     public override string CustomInfo { get; set; } = "SCP-999";

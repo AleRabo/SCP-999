@@ -6,9 +6,9 @@ using Exiled.Events.EventArgs.Player;
 using MEC;
 
 namespace SCP999.Interfaces;
-public abstract class Ability
+public abstract class IAbility
 {
-    public static List<Ability> Abilities { get; protected set; } = new List<Ability>();
+    public static List<IAbility> Abilities { get; protected set; } = new List<IAbility>();
 
     public abstract string Name { get; }
     public abstract string Description { get;  }
@@ -17,34 +17,6 @@ public abstract class Ability
 
     public abstract float Cooldown { get; }
     public abstract float Duration { get; }
-
-    protected abstract string PlayerBroadcast { get; }
-    protected abstract string VictimBroadcast { get; }
-    protected abstract string ErrorBroadcast { get; }
-    
-    public Ability()
-    {
-        Exiled.Events.Handlers.Player.UsingItem += OnUse;
-        Exiled.Events.Handlers.Player.ChangedItem += OnEquip;
-
-        Abilities.Add(this);
-    }
-
-    public virtual void Disable()
-    {
-        Exiled.Events.Handlers.Player.UsingItem -= OnUse;
-        Exiled.Events.Handlers.Player.ChangedItem -= OnEquip;
-    }
-
-    public static void DisableAll()
-    {
-        foreach (Ability ability in Abilities)
-        {
-            ability.Disable();
-        }
-
-        Abilities = null;
-    }
 
     private bool Check(Player player, ItemType item)
     {
@@ -83,7 +55,8 @@ public abstract class Ability
                 });
                 return;
             }
-            ev.Player.Broadcast(5, ErrorBroadcast);
+            
+            //ev.Player.Broadcast(5, AbilityErrorText);
             ev.IsAllowed = false;
         }
     }

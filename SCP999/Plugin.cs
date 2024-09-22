@@ -2,8 +2,6 @@ using System;
 using HarmonyLib;
 using Exiled.CustomRoles.API;
 using Exiled.API.Features;
-using SCP999.Abilities;
-using SCP999.Interfaces;
 
 namespace SCP999;
 public class Plugin : Plugin<Config, Translation>
@@ -14,51 +12,65 @@ public class Plugin : Plugin<Config, Translation>
     public override Version RequiredExiledVersion => new(8, 11, 0);
     
     private Harmony _harmony;
-    private EventHandler _eventHandler;
+    private ServerHandler _serverHandler;
+    private PlayerHandler _playerHandler;
     public static Plugin Singleton;
 
     public override void OnEnabled()
     {
         Singleton = this;
-        _eventHandler = new EventHandler();
+        _serverHandler = new ServerHandler();
+        _playerHandler = new PlayerHandler();
 
         Config.Scp999RoleConfig.Register();
 
         _harmony = new Harmony($"SCP999 - {DateTime.Now}");
         _harmony.PatchAll();
 
-        // Enable abilities - a temporary solution
-        Heal heal = new Heal();
-        
-        Exiled.Events.Handlers.Player.Spawned += _eventHandler.Spawned;
-        Exiled.Events.Handlers.Player.UsingItem += _eventHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.ChangingRole += _eventHandler.RoleChanged;
-        Exiled.Events.Handlers.Player.SearchingPickup += _eventHandler.PickingUpItem;
-        Exiled.Events.Handlers.Player.DroppingItem += _eventHandler.Dropping;
-        Exiled.Events.Handlers.Player.EnteringPocketDimension += _eventHandler.EnterPocket;
-        Exiled.Events.Handlers.Player.FailingEscapePocketDimension += _eventHandler.ExitPocket;
-        Exiled.Events.Handlers.Player.Hurting += _eventHandler.Hurting;
+        Exiled.Events.Handlers.Warhead.Stopping += _serverHandler.OnWarheadStop;
+        Exiled.Events.Handlers.Scp096.Enraging += _serverHandler.OnScpEnraging;
+        Exiled.Events.Handlers.Scp096.AddingTarget += _serverHandler.OnAddingTarget;
+        Exiled.Events.Handlers.Player.SpawningRagdoll += _serverHandler.OnSpawningRagdoll;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension += _serverHandler.OnEnteringPocketDimension;
+        Exiled.Events.Handlers.Server.RoundStarted += _playerHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Player.SearchingPickup += _playerHandler.OnSeachingPickup;
+        Exiled.Events.Handlers.Player.DroppingItem += _playerHandler.OnDroppingItem;
+        Exiled.Events.Handlers.Player.Hurting += _playerHandler.OnPlayerHurting;
+        Exiled.Events.Handlers.Player.UsingItem += _playerHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem += _playerHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.InteractingDoor += _playerHandler.OnInteractingDoor;
+        Exiled.Events.Handlers.Player.Dying += _playerHandler.OnPlayerDying;
+        Exiled.Events.Handlers.Player.Left += _playerHandler.OnPlayerLeft;
+        Exiled.Events.Handlers.Player.Spawning += _playerHandler.OnPlayerSpawning;
+        Exiled.Events.Handlers.Player.ChangingRole += _playerHandler.OnChangingRole;
         
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        Exiled.Events.Handlers.Player.Spawned -= _eventHandler.Spawned;
-        Exiled.Events.Handlers.Player.UsingItem -= _eventHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.ChangingRole -= _eventHandler.RoleChanged;
-        Exiled.Events.Handlers.Player.DroppingItem -= _eventHandler.Dropping;
-        Exiled.Events.Handlers.Player.EnteringPocketDimension -= _eventHandler.EnterPocket;
-        Exiled.Events.Handlers.Player.FailingEscapePocketDimension -= _eventHandler.ExitPocket;
-        Exiled.Events.Handlers.Player.Hurting -= _eventHandler.Hurting;
-        
-        // Disable abilities - a temporary solution
-        Ability.DisableAll();
+        Exiled.Events.Handlers.Warhead.Stopping -= _serverHandler.OnWarheadStop;
+        Exiled.Events.Handlers.Scp096.Enraging -= _serverHandler.OnScpEnraging;
+        Exiled.Events.Handlers.Scp096.AddingTarget -= _serverHandler.OnAddingTarget;
+        Exiled.Events.Handlers.Player.SpawningRagdoll -= _serverHandler.OnSpawningRagdoll;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension -= _serverHandler.OnEnteringPocketDimension;
+        Exiled.Events.Handlers.Server.RoundStarted -= _playerHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Player.SearchingPickup -= _playerHandler.OnSeachingPickup;
+        Exiled.Events.Handlers.Player.DroppingItem -= _playerHandler.OnDroppingItem;
+        Exiled.Events.Handlers.Player.Hurting -= _playerHandler.OnPlayerHurting;
+        Exiled.Events.Handlers.Player.UsingItem -= _playerHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem -= _playerHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.InteractingDoor -= _playerHandler.OnInteractingDoor;
+        Exiled.Events.Handlers.Player.Dying -= _playerHandler.OnPlayerDying;
+        Exiled.Events.Handlers.Player.Left -= _playerHandler.OnPlayerLeft;
+        Exiled.Events.Handlers.Player.Spawning -= _playerHandler.OnPlayerSpawning;
+        Exiled.Events.Handlers.Player.ChangingRole -= _playerHandler.OnChangingRole;
         
         Config.Scp999RoleConfig.Unregister();
-        _eventHandler = null;
         _harmony.UnpatchAll();
 
+        _playerHandler = null;
+        _serverHandler = null;
         Singleton = null;
         base.OnDisabled();
     }
