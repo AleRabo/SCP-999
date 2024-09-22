@@ -1,40 +1,35 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Exiled.API.Enums;
-using Exiled.API.Features;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
-using PluginAPI.Events;
-using SCP999.Abilities;
+using SCP999.Interfaces;
 
 namespace SCP999;
 public class PlayerHandler
 {
+    private List<IAbility> _abilityList;
+    
     /// <summary>
-    /// The logic of choosing SCP-999 if the round is started
+    /// Activate all ability classes and save to the list
     /// </summary>
-    public void OnRoundStarted()
+    public void OnWaitingRound()
     {
-        Scp999Role customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+        _abilityList = new List<IAbility>();
         
-        foreach (Player player in Player.List)
+        foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
         {
-            // If there is no SCP-999 in the game, then add
-            if (customRole.TrackedPlayers.Count >= customRole.SpawnProperties.Limit)
-                return;
-            
-            // The player already has a role
-            if (customRole.Check(player))
-                return;
-
-            // The player is an NPC
-            if (player.IsNPC && player.Nickname != "SCP-999")
-                return;
-            
-            // Checking the chance to spawn
-            if (UnityEngine.Random.Range(0, 100) > customRole.SpawnChance)
-                return;
-            
-            customRole.AddRole(player);
+            try
+            {
+                if (type.GetInterface("IAbility") != typeof(IAbility))
+                    continue;
+                    
+                var activator = Activator.CreateInstance(type) as IAbility;
+                _abilityList.Add(activator);
+            }
+            catch {}
         }
     }
     
@@ -45,7 +40,9 @@ public class PlayerHandler
     {
         if (CustomRole.Get(typeof(Scp999Role)).Check(ev.Player))
         {
-            // todo something
+            ev.IsAllowed = false;
+            
+            _abilityList.FirstOrDefault(r => r.ItemType == ev.Item.Type)?.Invoke(ev);
         }
     }
     

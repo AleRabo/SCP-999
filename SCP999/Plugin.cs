@@ -26,13 +26,14 @@ public class Plugin : Plugin<Config, Translation>
 
         _harmony = new Harmony($"SCP999 - {DateTime.Now}");
         _harmony.PatchAll();
-
+        
+        Exiled.Events.Handlers.Server.RoundStarted += _serverHandler.OnRoundStarted;
         Exiled.Events.Handlers.Warhead.Stopping += _serverHandler.OnWarheadStop;
         Exiled.Events.Handlers.Scp096.Enraging += _serverHandler.OnScpEnraging;
         Exiled.Events.Handlers.Scp096.AddingTarget += _serverHandler.OnAddingTarget;
         Exiled.Events.Handlers.Player.SpawningRagdoll += _serverHandler.OnSpawningRagdoll;
         Exiled.Events.Handlers.Player.EnteringPocketDimension += _serverHandler.OnEnteringPocketDimension;
-        Exiled.Events.Handlers.Server.RoundStarted += _playerHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Server.WaitingForPlayers += _playerHandler.OnWaitingRound;
         Exiled.Events.Handlers.Player.SearchingPickup += _playerHandler.OnSeachingPickup;
         Exiled.Events.Handlers.Player.DroppingItem += _playerHandler.OnDroppingItem;
         Exiled.Events.Handlers.Player.Hurting += _playerHandler.OnPlayerHurting;
@@ -49,12 +50,13 @@ public class Plugin : Plugin<Config, Translation>
 
     public override void OnDisabled()
     {
+        Exiled.Events.Handlers.Server.RoundStarted -= _serverHandler.OnRoundStarted;
         Exiled.Events.Handlers.Warhead.Stopping -= _serverHandler.OnWarheadStop;
         Exiled.Events.Handlers.Scp096.Enraging -= _serverHandler.OnScpEnraging;
         Exiled.Events.Handlers.Scp096.AddingTarget -= _serverHandler.OnAddingTarget;
         Exiled.Events.Handlers.Player.SpawningRagdoll -= _serverHandler.OnSpawningRagdoll;
         Exiled.Events.Handlers.Player.EnteringPocketDimension -= _serverHandler.OnEnteringPocketDimension;
-        Exiled.Events.Handlers.Server.RoundStarted -= _playerHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Server.WaitingForPlayers -= _playerHandler.OnWaitingRound;
         Exiled.Events.Handlers.Player.SearchingPickup -= _playerHandler.OnSeachingPickup;
         Exiled.Events.Handlers.Player.DroppingItem -= _playerHandler.OnDroppingItem;
         Exiled.Events.Handlers.Player.Hurting -= _playerHandler.OnPlayerHurting;
@@ -72,6 +74,7 @@ public class Plugin : Plugin<Config, Translation>
         _playerHandler = null;
         _serverHandler = null;
         Singleton = null;
+        
         base.OnDisabled();
     }
 }

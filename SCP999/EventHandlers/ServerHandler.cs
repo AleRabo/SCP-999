@@ -1,16 +1,41 @@
-using Exiled.API.Enums;
-using Exiled.API.Extensions;
 using Exiled.API.Features;
-using Exiled.CustomRoles.API;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
-using System;
 using Exiled.Events.EventArgs.Scp096;
 using Exiled.Events.EventArgs.Warhead;
 
 namespace SCP999;
 public class ServerHandler
 {
+    /// <summary>
+    /// The logic of choosing SCP-999 if the round is started
+    /// </summary>
+    public void OnRoundStarted()
+    {
+        Scp999Role customRole = CustomRole.Get(typeof(Scp999Role)) as Scp999Role;
+        
+        foreach (Player player in Player.List)
+        {
+            // If there is no SCP-999 in the game, then add
+            if (customRole.TrackedPlayers.Count >= customRole.SpawnProperties.Limit)
+                return;
+            
+            // The player already has a role
+            if (customRole.Check(player))
+                return;
+
+            // The player is an NPC
+            if (player.IsNPC && player.Nickname != "SCP-999")
+                return;
+            
+            // Checking the chance to spawn
+            if (UnityEngine.Random.Range(0, 100) > customRole.SpawnChance)
+                return;
+            
+            customRole.AddRole(player);
+        }
+    }
+    
     /// <summary>
     /// Does not allow SCP-999 to turn off the warhead
     /// </summary>
