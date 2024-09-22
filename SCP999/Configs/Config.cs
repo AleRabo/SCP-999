@@ -26,13 +26,11 @@ public class Config : IConfig
     [Description("SCP-999 AOE abiliities range.")]
     public Dictionary<string, AbilityConfig> Abilities { get; set; } = new()
     {
-        { "Invigorate", new AbilityConfig(10f, 5f) },
-        { "Heal", new AbilityConfig(20f, 50f) },
-        { "SpeedBoost", new AbilityConfig(15f, 4f) }
+        { "Heal", new AbilityConfig(20, 50f, false) },
+        { "SpeedBoost", new AbilityConfig(15, 4f, false) },
+        { "Pressure", new AbilityConfig(50, 4f, false) }
     };
 
-    [Description("Does the SpeedBoost ability slow SCPs?")]
-    public bool SpeedSlowsSCPs { get; set; } = true;
     [Description("Maximum range of SCP-999 abilities")]
     public float MaxDistance { get; set; } = 10;
 }
