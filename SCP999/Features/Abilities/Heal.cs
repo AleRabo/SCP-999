@@ -6,7 +6,7 @@ using MEC;
 using SCP999.Interfaces;
 using UnityEngine;
 
-namespace SCP999.Abilities;
+namespace SCP999;
 public class Heal : IAbility
 {
     public string Name { get; } = "Heal";

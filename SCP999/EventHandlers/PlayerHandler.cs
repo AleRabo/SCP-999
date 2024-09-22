@@ -5,6 +5,7 @@ using System.Reflection;
 using Exiled.API.Enums;
 using Exiled.CustomRoles.API.Features;
 using Exiled.Events.EventArgs.Player;
+using PluginAPI.Core;
 using SCP999.Interfaces;
 
 namespace SCP999;
@@ -19,17 +20,23 @@ public class PlayerHandler
     {
         _abilityList = new List<IAbility>();
         
-        foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
+        foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
         {
             try
             {
-                if (type.GetInterface("IAbility") != typeof(IAbility))
+                if (type.IsInterface || !type.GetInterfaces().Contains(typeof(IAbility)))
                     continue;
-                    
+
                 var activator = Activator.CreateInstance(type) as IAbility;
-                _abilityList.Add(activator);
+                if (activator != null)
+                {
+                    _abilityList.Add(activator);
+                }
             }
-            catch {}
+            catch (Exception ex)
+            {
+                Log.Error("OnWaitingRound error in IAbility:" + ex.Message);
+            }
         }
     }
     
