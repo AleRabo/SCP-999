@@ -12,67 +12,64 @@ public class Plugin : Plugin<Config, Translation>
     public override Version RequiredExiledVersion => new(8, 11, 0);
     
     private Harmony _harmony;
-    private ServerHandler _serverHandler;
-    private PlayerHandler _playerHandler;
+    private EventHandler _eventHandler;
     public static Plugin Singleton;
 
     public override void OnEnabled()
     {
         Singleton = this;
-        _serverHandler = new ServerHandler();
-        _playerHandler = new PlayerHandler();
+        _eventHandler = new EventHandler();
 
         Config.Scp999RoleConfig.Register();
 
         _harmony = new Harmony($"SCP999 - {DateTime.Now}");
         _harmony.PatchAll();
         
-        Exiled.Events.Handlers.Server.RoundStarted += _serverHandler.OnRoundStarted;
-        Exiled.Events.Handlers.Warhead.Stopping += _serverHandler.OnWarheadStop;
-        Exiled.Events.Handlers.Scp096.Enraging += _serverHandler.OnScpEnraging;
-        Exiled.Events.Handlers.Scp096.AddingTarget += _serverHandler.OnAddingTarget;
-        Exiled.Events.Handlers.Player.SpawningRagdoll += _serverHandler.OnSpawningRagdoll;
-        Exiled.Events.Handlers.Player.EnteringPocketDimension += _serverHandler.OnEnteringPocketDimension;
-        Exiled.Events.Handlers.Server.WaitingForPlayers += _playerHandler.OnWaitingRound;
-        Exiled.Events.Handlers.Player.SearchingPickup += _playerHandler.OnSeachingPickup;
-        Exiled.Events.Handlers.Player.DroppingItem += _playerHandler.OnDroppingItem;
-        Exiled.Events.Handlers.Player.Hurting += _playerHandler.OnPlayerHurting;
-        Exiled.Events.Handlers.Player.UsingItem += _playerHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.UsingItem += _playerHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.InteractingDoor += _playerHandler.OnInteractingDoor;
-        Exiled.Events.Handlers.Player.Dying += _playerHandler.OnPlayerDying;
-        Exiled.Events.Handlers.Player.Left += _playerHandler.OnPlayerLeft;
-        Exiled.Events.Handlers.Player.Spawning += _playerHandler.OnPlayerSpawning;
-        Exiled.Events.Handlers.Player.ChangingRole += _playerHandler.OnChangingRole;
+        Exiled.Events.Handlers.Server.RoundStarted += _eventHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Warhead.Stopping += _eventHandler.OnWarheadStop;
+        Exiled.Events.Handlers.Scp096.Enraging += _eventHandler.OnScpEnraging;
+        Exiled.Events.Handlers.Scp096.AddingTarget += _eventHandler.OnAddingTarget;
+        Exiled.Events.Handlers.Player.SpawningRagdoll += _eventHandler.OnSpawningRagdoll;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension += _eventHandler.OnEnteringPocketDimension;
+        Exiled.Events.Handlers.Server.WaitingForPlayers += _eventHandler.OnWaitingRound;
+        Exiled.Events.Handlers.Player.SearchingPickup += _eventHandler.OnSeachingPickup;
+        Exiled.Events.Handlers.Player.DroppingItem += _eventHandler.OnDroppingItem;
+        Exiled.Events.Handlers.Player.Hurting += _eventHandler.OnPlayerHurting;
+        Exiled.Events.Handlers.Player.UsingItem += _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem += _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.InteractingDoor += _eventHandler.OnInteractingDoor;
+        Exiled.Events.Handlers.Player.Dying += _eventHandler.OnPlayerDying;
+        Exiled.Events.Handlers.Player.Left += _eventHandler.OnPlayerLeft;
+        Exiled.Events.Handlers.Player.Spawning += _eventHandler.OnPlayerSpawning;
+        Exiled.Events.Handlers.Player.ChangingRole += _eventHandler.OnChangingRole;
         
         base.OnEnabled();
     }
 
     public override void OnDisabled()
     {
-        Exiled.Events.Handlers.Server.RoundStarted -= _serverHandler.OnRoundStarted;
-        Exiled.Events.Handlers.Warhead.Stopping -= _serverHandler.OnWarheadStop;
-        Exiled.Events.Handlers.Scp096.Enraging -= _serverHandler.OnScpEnraging;
-        Exiled.Events.Handlers.Scp096.AddingTarget -= _serverHandler.OnAddingTarget;
-        Exiled.Events.Handlers.Player.SpawningRagdoll -= _serverHandler.OnSpawningRagdoll;
-        Exiled.Events.Handlers.Player.EnteringPocketDimension -= _serverHandler.OnEnteringPocketDimension;
-        Exiled.Events.Handlers.Server.WaitingForPlayers -= _playerHandler.OnWaitingRound;
-        Exiled.Events.Handlers.Player.SearchingPickup -= _playerHandler.OnSeachingPickup;
-        Exiled.Events.Handlers.Player.DroppingItem -= _playerHandler.OnDroppingItem;
-        Exiled.Events.Handlers.Player.Hurting -= _playerHandler.OnPlayerHurting;
-        Exiled.Events.Handlers.Player.UsingItem -= _playerHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.UsingItem -= _playerHandler.OnUsingItem;
-        Exiled.Events.Handlers.Player.InteractingDoor -= _playerHandler.OnInteractingDoor;
-        Exiled.Events.Handlers.Player.Dying -= _playerHandler.OnPlayerDying;
-        Exiled.Events.Handlers.Player.Left -= _playerHandler.OnPlayerLeft;
-        Exiled.Events.Handlers.Player.Spawning -= _playerHandler.OnPlayerSpawning;
-        Exiled.Events.Handlers.Player.ChangingRole -= _playerHandler.OnChangingRole;
+        Exiled.Events.Handlers.Server.RoundStarted -= _eventHandler.OnRoundStarted;
+        Exiled.Events.Handlers.Warhead.Stopping -= _eventHandler.OnWarheadStop;
+        Exiled.Events.Handlers.Scp096.Enraging -= _eventHandler.OnScpEnraging;
+        Exiled.Events.Handlers.Scp096.AddingTarget -= _eventHandler.OnAddingTarget;
+        Exiled.Events.Handlers.Player.SpawningRagdoll -= _eventHandler.OnSpawningRagdoll;
+        Exiled.Events.Handlers.Player.EnteringPocketDimension -= _eventHandler.OnEnteringPocketDimension;
+        Exiled.Events.Handlers.Server.WaitingForPlayers -= _eventHandler.OnWaitingRound;
+        Exiled.Events.Handlers.Player.SearchingPickup -= _eventHandler.OnSeachingPickup;
+        Exiled.Events.Handlers.Player.DroppingItem -= _eventHandler.OnDroppingItem;
+        Exiled.Events.Handlers.Player.Hurting -= _eventHandler.OnPlayerHurting;
+        Exiled.Events.Handlers.Player.UsingItem -= _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.UsingItem -= _eventHandler.OnUsingItem;
+        Exiled.Events.Handlers.Player.InteractingDoor -= _eventHandler.OnInteractingDoor;
+        Exiled.Events.Handlers.Player.Dying -= _eventHandler.OnPlayerDying;
+        Exiled.Events.Handlers.Player.Left -= _eventHandler.OnPlayerLeft;
+        Exiled.Events.Handlers.Player.Spawning -= _eventHandler.OnPlayerSpawning;
+        Exiled.Events.Handlers.Player.ChangingRole -= _eventHandler.OnChangingRole;
         
         Config.Scp999RoleConfig.Unregister();
         _harmony.UnpatchAll();
 
-        _playerHandler = null;
-        _serverHandler = null;
+        _eventHandler = null;
         Singleton = null;
         
         base.OnDisabled();

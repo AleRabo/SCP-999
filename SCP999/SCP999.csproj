@@ -50,4 +50,7 @@
     <Reference Include="NorthwoodLib" HintPath="$(SL_REFERENCES)\NorthwoodLib.dll" />
     <Reference Include="Pooling" HintPath="$(SL_REFERENCES)\Pooling.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Schematics\" />
+  </ItemGroup>
 </Project>
