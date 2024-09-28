@@ -44,23 +44,34 @@ public class Scp999Role : CustomRole
         Log.Debug($"Player Nickname: {player.Nickname}");
         Log.Debug($"Tracked Players Count: {TrackedPlayers.Count}");
         Log.Debug($"Spawn Limit: {SpawnProperties.Limit}");
+        
+        if (player.IsNPC || TrackedPlayers.Count >= SpawnProperties.Limit)
+            return;
+        
+        _schematicObject = MerExtensions.SpawnSchematicForPlayer(SchematicName);
+        if (_schematicObject == null)
+            return;
+        
+        _animator = MerExtensions.GetAnimatorFromSchematic(_schematicObject);
+        if (_animator == null)
+            return;
+        
+        base.AddRole(player);
+        player.Role.Set(Role, RoleSpawnFlags.None);
+        player.Health = MaxHealth;
+        player.IsGodModeEnabled = Plugin.Singleton.Config.IsGodModeEnabled;
 
-        if (!player.IsNPC && player.Nickname != "SCP-999" && TrackedPlayers.Count < SpawnProperties.Limit)
+        foreach (var ability in Plugin.Singleton.Config.Abilities)
         {
-            base.AddRole(player); // Ensure the custom role system applies the role
-            
-            player.Role.Set(Role, RoleSpawnFlags.None); // ?
-            player.Health = MaxHealth; // Set health
-            player.IsGodModeEnabled = Plugin.Singleton.Config.IsGodModeEnabled;
-
-            foreach (var ability in Plugin.Singleton.Config.Abilities)
-            {
-                player.AddItem(ability.Value.ItemType);
-            }
+            player.AddItem(ability.Value.ItemType);
         }
         
-        _schematicObject = MerExtensions.SpawnSchematicForPlayer(player, SchematicName, Scale);
-        _animator = MerExtensions.GetAnimatorFromSchematic(_schematicObject);
+        // Making the player invisible to all players
+        MerExtensions.SendFakeSpawnMessage(player, Scale);
+        
+        _schematicObject.transform.parent = player.Transform;
+        _schematicObject.transform.rotation = new Quaternion();
+        _schematicObject.transform.position = player.Position + new Vector3(0, -.25f, 0);
     }
 
     /// <summary>

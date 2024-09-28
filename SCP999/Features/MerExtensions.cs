@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Exiled.API.Features;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
@@ -15,7 +16,7 @@ public class MerExtensions
     /// <param name="player"></param>
     /// <param name="scale"></param>
     /// <returns></returns>
-    public static SchematicObject SpawnSchematicForPlayer(Player player, string schematicName, Vector3 scale)
+    public static SchematicObject SpawnSchematicForPlayer(string schematicName)
     {
         // If the schematics don't exist, then don't do anything
         SchematicObject schematicObject = SpawnSchematicByName(schematicName);
@@ -23,13 +24,7 @@ public class MerExtensions
         {
             return null;
         }
-
-        // Making the player invisible to all players
-        SendFakeSpawnMessage(player, scale);
         
-        schematicObject.transform.parent = player.Transform;
-        schematicObject.transform.rotation = new Quaternion();
-        schematicObject.transform.position = player.Position + new Vector3(0, -.25f, 0);
         return schematicObject;
     }
 
@@ -72,16 +67,19 @@ public class MerExtensions
     public static SchematicObjectDataList GetSchematicDataByProject(string schematicName)
     {
         // SCP999/Schematics/SCP999Model
-        string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "Schematics", schematicName);
+        string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schematics", schematicName);
         if (!Directory.Exists(dirPath))
+        {
+            Log.Error($"The directory {dirPath} was not found");
             return null;
-        
+        }
+
         // SCP999/Schematics/SCP999Model/SCP999Model.json
         string schematicPath = Path.Combine(dirPath, $"{schematicName}.json");
         if (!File.Exists(schematicPath))
             return null;
-
-        SchematicObjectDataList data = JsonSerializer.Deserialize<SchematicObjectDataList>(File.ReadAllText(schematicPath));
+        
+        SchematicObjectDataList data = JsonSerializer.Deserialize<SchematicObjectDataList>(dirPath);
         data.Path = dirPath;
 
         return data;
