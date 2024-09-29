@@ -22,16 +22,19 @@ public class Scp999Role : CustomRole
         Limit = 1,
         DynamicSpawnPoints = new List<DynamicSpawnPoint>()
         {
-            new() { Chance = 100, Location = SpawnLocationType.Inside330Chamber }
+            new() { Chance = 25, Location = SpawnLocationType.Inside330Chamber },
+            new() { Chance = 25, Location = SpawnLocationType.Inside914 },
+            new() { Chance = 25, Location = SpawnLocationType.InsideGr18 },
+            new() { Chance = 25, Location = SpawnLocationType.InsideLczWc }
         }
     };
     
     [YamlIgnore]
     public override RoleTypeId Role { get; set; } = RoleTypeId.Tutorial;
-    public string SchematicName { get; set; } = "SCP999Model";
+    public string SchematicName { get; set; } = "SCP_999";
     private static SchematicObject _schematicObject;
     private static Animator _animator;
-    //public static AudioPlayerBase audio;
+    //private static AudioPlayerBase _audioPlayerBase;
     
     /// <summary>
     /// Adding the SCP-999 role to the player
@@ -67,12 +70,13 @@ public class Scp999Role : CustomRole
             return;
         }
         
+        /*
         _animator = MerExtensions.GetAnimatorFromSchematic(_schematicObject);
         if (_animator == null)
         {
             this.RemoveRole(player);
             return;
-        }
+        }*/
         
         _schematicObject.transform.parent = player.Transform;
         _schematicObject.transform.rotation = new Quaternion();

@@ -20,7 +20,7 @@ public class MerExtensions
     {
         SchematicObjectDataList data;
         
-        if (schematicName == "SCP999Model")
+        if (schematicName == "SCP_999")
         {
             // The schematics are in the solution
             data = GetSchematicDataByProject(schematicName);
@@ -59,8 +59,8 @@ public class MerExtensions
     /// <returns></returns>
     public static SchematicObjectDataList GetSchematicDataByProject(string schematicName)
     {
-        string dirPath = "SCP999.Schematics.SCP999Model";
-        string resourcePath = dirPath + ".SCP999Model.json";
+        string dirPath = "SCP999.Schematics.SCP_999";
+        string resourcePath = dirPath + ".SCP_999.json";
         SchematicObjectDataList data = null;
         try
         {

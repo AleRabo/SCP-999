@@ -54,8 +54,12 @@
     <Folder Include="Schematics\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Schematics\SCP999Model\SCP999Model.json" />
-    <EmbeddedResource Include="Schematics\SCP999Model\SCP999Model.json">
+    <None Remove="Schematics\SCP_999\Animation 1" />
+    <EmbeddedResource Include="Schematics\SCP_999\Animation 1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Remove="Schematics\SCP_999\SCP_999.json" />
+    <EmbeddedResource Include="Schematics\SCP_999\SCP_999.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
