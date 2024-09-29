@@ -53,4 +53,10 @@
   <ItemGroup>
     <Folder Include="Schematics\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Schematics\SCP999Model\SCP999Model.json" />
+    <EmbeddedResource Include="Schematics\SCP999Model\SCP999Model.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

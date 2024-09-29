@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Exiled.API.Features;
 using MapEditorReborn.API.Features;
 using MapEditorReborn.API.Features.Objects;
@@ -10,24 +11,6 @@ using UnityEngine;
 namespace SCP999;
 public class MerExtensions
 {
-    /// <summary>
-    /// Spawn schematics and binding to the player by transform
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="scale"></param>
-    /// <returns></returns>
-    public static SchematicObject SpawnSchematicForPlayer(string schematicName)
-    {
-        // If the schematics don't exist, then don't do anything
-        SchematicObject schematicObject = SpawnSchematicByName(schematicName);
-        if (schematicObject == null)
-        {
-            return null;
-        }
-        
-        return schematicObject;
-    }
-
     /// <summary>
     /// Spawn schematics by name in the solution or MER folder
     /// </summary>
@@ -66,43 +49,28 @@ public class MerExtensions
     /// <returns></returns>
     public static SchematicObjectDataList GetSchematicDataByProject(string schematicName)
     {
-        // SCP999/Schematics/SCP999Model
-        string dirPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schematics", schematicName);
-        if (!Directory.Exists(dirPath))
+        string dirPath = "SCP999.Schematics.SCP999Model";
+        string resourcePath = dirPath + ".SCP999Model.json";
+        SchematicObjectDataList data = null;
+        try
         {
-            Log.Error($"The directory {dirPath} was not found");
-            return null;
-        }
-
-        // SCP999/Schematics/SCP999Model/SCP999Model.json
-        string schematicPath = Path.Combine(dirPath, $"{schematicName}.json");
-        if (!File.Exists(schematicPath))
-            return null;
-        
-        SchematicObjectDataList data = JsonSerializer.Deserialize<SchematicObjectDataList>(dirPath);
-        data.Path = dirPath;
-
-        return data;
-    }
-    
-    /// <summary>
-    /// Make the player invisible to all players
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="scale"></param>
-    public static void SendFakeSpawnMessage(Player player, Vector3 scale)
-    {
-        player.ReferenceHub.transform.localScale = Vector3.zero;
-
-        foreach (Player target in Player.List)
-        {
-            if (target == player)
-                continue;
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Stream stream = assembly.GetManifestResourceStream(resourcePath);
+            if (stream == null)
+            {
+                Log.Error("The schematic was not found in solution");
+                return null;
+            }
             
-            Server.SendSpawnMessage?.Invoke(null, new object[] { player.ReferenceHub.networkIdentity, target.Connection });
+            data = JsonSerializer.Deserialize<SchematicObjectDataList>(stream);
+            data.Path = dirPath;
+        }
+        catch (Exception ex)
+        {
+            Log.Error("OnWaitingRound error in IAbility:" + ex.Message);
         }
         
-        player.ReferenceHub.transform.localScale = scale;
+        return data;
     }
     
     /// <summary>

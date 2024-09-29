@@ -23,7 +23,7 @@ public class Scp999Role : CustomRole
         Limit = 1,
         DynamicSpawnPoints = new List<DynamicSpawnPoint>()
         {
-            new() { Chance = 100, Location = SpawnLocationType.Inside330 } // another
+            new() { Chance = 100, Location = SpawnLocationType.Inside330Chamber }
         }
     };
     
@@ -48,7 +48,7 @@ public class Scp999Role : CustomRole
         if (player.IsNPC || TrackedPlayers.Count >= SpawnProperties.Limit)
             return;
         
-        _schematicObject = MerExtensions.SpawnSchematicForPlayer(SchematicName);
+        _schematicObject = MerExtensions.SpawnSchematicByName(SchematicName);
         if (_schematicObject == null)
             return;
         
@@ -67,7 +67,7 @@ public class Scp999Role : CustomRole
         }
         
         // Making the player invisible to all players
-        MerExtensions.SendFakeSpawnMessage(player, Scale);
+        SendFakeSpawnMessage(player, Scale);
         
         _schematicObject.transform.parent = player.Transform;
         _schematicObject.transform.rotation = new Quaternion();
@@ -83,12 +83,29 @@ public class Scp999Role : CustomRole
         try
         {
             _schematicObject.Destroy();
-
-            //player.Scale = Vector3.one;
-            //player.Kill(); <-
-
-            TrackedPlayers.Remove(player);
+            //TrackedPlayers.Remove(player);
+            //player.Kill("Remove Scp999");
         }
         catch { Exception ex; }
+    }
+    
+    /// <summary>
+    /// Make the player invisible to all players
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="scale"></param>
+    public void SendFakeSpawnMessage(Player player, Vector3 scale)
+    {
+        player.ReferenceHub.transform.localScale = Vector3.zero;
+
+        foreach (Player target in Player.List)
+        {
+            if (target == player)
+                continue;
+            
+            Server.SendSpawnMessage?.Invoke(null, new object[] { player.ReferenceHub.networkIdentity, target.Connection });
+        }
+        
+        player.ReferenceHub.transform.localScale = scale;
     }
 }
