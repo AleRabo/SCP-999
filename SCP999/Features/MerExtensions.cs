@@ -16,7 +16,7 @@ public class MerExtensions
     /// </summary>
     /// <param name="schematicName"></param>
     /// <returns></returns>
-    public static SchematicObject SpawnSchematicByName(string schematicName)
+    public static SchematicObject SpawnSchematicByName(string schematicName, Vector3 position, Quaternion rotation, Vector3 scale)
     {
         SchematicObjectDataList data;
         
@@ -37,9 +37,19 @@ public class MerExtensions
             return null;
         }
         
-        GameObject gameObject = new GameObject("CustomSchematic-" + schematicName);
-        SchematicObject schematicObject = gameObject.AddComponent<SchematicObject>().Init(new SchematicSerializable(schematicName), data, false);
-        return schematicObject;
+        GameObject gameObject = new($"CustomSchematic-{schematicName}")
+        {
+            transform =
+            {
+                position = position,
+                rotation = rotation,
+            },
+        };
+        
+        SchematicObject schematicObjectComponent = gameObject.AddComponent<SchematicObject>().Init(new SchematicSerializable(schematicName), data, false);
+        gameObject.transform.localScale = scale;
+        
+        return schematicObjectComponent;
     }
 
     /// <summary>
@@ -67,7 +77,7 @@ public class MerExtensions
         }
         catch (Exception ex)
         {
-            Log.Error("OnWaitingRound error in IAbility:" + ex.Message);
+            Log.Error("Error in GetSchematicDataByProject:" + ex.Message);
         }
         
         return data;

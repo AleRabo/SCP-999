@@ -4,7 +4,6 @@ using PlayerRoles;
 using UnityEngine;
 using MapEditorReborn.API.Features.Objects;
 using System.Collections.Generic;
-using System;
 using Exiled.API.Features.Spawn;
 using Exiled.API.Enums;
 using YamlDotNet.Serialization;
@@ -48,14 +47,6 @@ public class Scp999Role : CustomRole
         if (player.IsNPC || TrackedPlayers.Count >= SpawnProperties.Limit)
             return;
         
-        _schematicObject = MerExtensions.SpawnSchematicByName(SchematicName);
-        if (_schematicObject == null)
-            return;
-        
-        _animator = MerExtensions.GetAnimatorFromSchematic(_schematicObject);
-        if (_animator == null)
-            return;
-        
         base.AddRole(player);
         player.Role.Set(Role, RoleSpawnFlags.None);
         player.Health = MaxHealth;
@@ -68,6 +59,20 @@ public class Scp999Role : CustomRole
         
         // Making the player invisible to all players
         SendFakeSpawnMessage(player, Scale);
+
+        _schematicObject = MerExtensions.SpawnSchematicByName(SchematicName, player.Position, player.Rotation, player.Scale);
+        if (_schematicObject == null)
+        {
+            this.RemoveRole(player);
+            return;
+        }
+        
+        _animator = MerExtensions.GetAnimatorFromSchematic(_schematicObject);
+        if (_animator == null)
+        {
+            this.RemoveRole(player);
+            return;
+        }
         
         _schematicObject.transform.parent = player.Transform;
         _schematicObject.transform.rotation = new Quaternion();
@@ -80,13 +85,7 @@ public class Scp999Role : CustomRole
     /// <param name="player">A player who should become normal role</param>
     public override void RemoveRole(Player player)
     {
-        try
-        {
-            _schematicObject.Destroy();
-            //TrackedPlayers.Remove(player);
-            //player.Kill("Remove Scp999");
-        }
-        catch { Exception ex; }
+        _schematicObject?.Destroy();
     }
     
     /// <summary>
